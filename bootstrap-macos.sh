@@ -37,10 +37,10 @@ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/theme
 # download atom
 curl -L https://atom.io/download/mac > /tmp/atom.zip
 unzip /tmp/atom.zip
-mv /tmp/Atom.zpp /Applications/.
+mv /tmp/Atom.zip /Applications/.
 
 # download chrome
 (
   cd Downloads
-  curl -L https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
+  curl -LO https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
 )
