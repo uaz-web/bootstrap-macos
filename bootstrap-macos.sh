@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # make directories
+mkdir /tmp/bootstrap
 if [[ ! -d ~/src ]]; then
   mkdir -p ~/src
 fi
-
-mkdir /tmp/bootstrap
 
 # gen ssh key
 if [[ ! -f ~/.ssh/id_rsa ]]; then
