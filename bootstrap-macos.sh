@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # make directories
-mkdir /tmp/bootstrap
+TEMPDIR=$(mktemp -d)
 if [[ ! -d ~/src ]]; then
   mkdir -p ~/src
 fi
@@ -18,29 +18,22 @@ fi
 brew install -y git vim node
 
 # configure git
-curl -L https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore > ~/.gitignore
+curl -L 'https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore' > ~/.gitignore
 git config --global core.excludesfile ~/.gitignore
 git config --global init.defaultBranch main
 
 # download iterm2
-curl -L https://iterm2.com/downloads/stable/latest > /tmp/bootstrap/iterm.zip
-unzip /tmp/bootstrap/iterm.zip -d /Applications
-
-# download iterm themes
-git clone https://github.com/mbadolato/iTerm2-Color-Schemes ~/src/iTerm2-Color-Schemes
+curl -L 'https://iterm2.com/downloads/stable/latest' > "${TEMPDIR}/iterm.zip" && \
+  unzip "${TEMPDIR}/iterm.zip" -d /Applications
 
 # download vscode
-curl -L https://update.code.visualstudio.com/latest/darwin/stable > /tmp/bootstrap/vscode.zip
-unzip /tmp/bootstrap/vscode.zip -d /Applications
+curl -L 'https://update.code.visualstudio.com/latest/darwin/stable' > "${TEMPDIR}/vscode.zip" && \
+  unzip "${TEMPDIR}/vscode.zip" -d /Applications
 
 # download chrome
-curl -L https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg > /tmp/bootstrap/googlechrome.dmg
-hdiutil attach /tmp/bootstrap/googlechrome.dmg
-cp -R "/Volumes/Google Chrome/Google Chrome.app" /Applications
-hdiutil detach `hdiutil info | grep "Google Chrome" | cut -f1 | grep -oe '.*disk[0-9]*'`
+curl -L 'https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg' > "${TEMPDIR}/googlechrome.dmg" && \
+  open "${TEMPDIR}/googlechrome.dmg"
 
-# download powerlevel9k
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-
-# install oh-my-zsh (this needs to be last because it takes over the active shell)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# download firefox
+curl -L 'https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US' > "${TEMPDIR}/firefox.dmg" && \
+  open "${TEMPDIR}/firefox.dmg"
