@@ -20,6 +20,7 @@ brew install -y git vim node
 # configure git
 curl -L https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore > ~/.gitignore
 git config --global core.excludesfile ~/.gitignore
+git config --global init.defaultBranch main
 
 # download iterm2
 curl -L https://iterm2.com/downloads/stable/latest > /tmp/bootstrap/iterm.zip
